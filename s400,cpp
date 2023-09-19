@@ -1,0 +1,119 @@
+#include "ball.h"
+#include "platform.h"
+#include "Rating.h"
+#include "Button.h"
+
+#include <Windows.h>
+
+int menu() {
+	int i;
+	system("cls");
+	printf("  1) Ball\n  2) Platform\n  3) Coin\n  4) Rating\n  5) Button\n  0) Output\n\n  Choose: ");
+	scanf("%d", &i);
+	return i;
+}
+
+int main() {
+	Ball a;
+	Platform plato;
+	Coin c;
+	Rating r;
+	Button b;
+
+	int f = 1;
+	int vib;
+	do {
+		switch (menu()) {
+		case 0: //Выход
+			f = 0;
+			break;
+		case 1: //Работа с шаром
+			do {
+				system("cls");
+				printf("\n  1 - initiaz.\n  2 - input\n  3 - print data\n  4 - Step\n  0 - Output\n\n  Choose: ");
+				scanf("%d", &vib);
+				if (vib == 1)
+					a = ball_init(2, 3, 1);
+				if (vib == 2)
+					a = ball_vvod();
+				if (vib == 3)
+					ball_vivod(a);
+				if (vib == 4)
+					a = ball_move(a);
+				printf("\nSuccessfully!");
+				Sleep(1500);
+			} while (vib != 0);
+			break;
+		case 2: //Работа с платформой
+			do {
+				system("cls");
+				printf("\n  1 - initiaz.\n  2 - input\n  3 - print data\n  4 - Rotate\n  0 - Output\n\n  Choose: ");
+				scanf("%d", &vib);
+				if (vib == 1)
+					plato = pl_init(1, 2, 3);
+				if (vib == 2)
+					plato = pl_vvod();
+				if (vib == 3)
+					pl_vivod(plato);
+				if (vib == 4)
+					plato.angle = pl_rotate();
+				printf("\nSuccessfully!");
+				Sleep(1500);
+			} while (vib != 0);
+			break;
+		case 3: //Работа с монеткой
+			do {
+				system("cls");
+				printf("\n  1 - initiaz.\n  2 - input\n  3 - print data\n  4 - Rand coord\n  0 - Output\n\n  Choose: ");
+				scanf("%d", &vib);
+				if (vib == 1)
+					c = coin_init(1, 1);
+				if (vib == 2)
+					c = coin_vvod();
+				if (vib == 3) {
+					printf("\Coin data:\n\n");
+					coin_vivod(c);
+				}
+				if (vib == 4)
+					c = coin_coord();
+				printf("\nSuccessfully!");
+				Sleep(1500);
+			} while (vib != 0);
+		case 4: //Работа с рейтингом
+			do {
+				system("cls");
+				printf("\n  1 - initiaz.\n  2 - print rating\n  3 - Plus\n  0 - Output\n\n  Choose: ");
+				scanf("%d", &vib);
+				while (getchar() != '\n');
+				if (vib == 1) {
+					Coin mas[5];
+					for (int i = 0; i < 5; i++)
+						mas[i] = coin_coord();
+					r = rat_init(0, mas);
+				}
+				if (vib == 2) {
+					rat_vivod(r);
+					_getch();
+				}
+				if (vib == 3)
+					r.i = rat_plus(r);
+				printf("\nSuccessfully!");
+				Sleep(1000);
+			} while (vib != 0);
+		case 5: //Работа с кнопкой
+			do {
+				system("cls");
+				printf("\n  1 - initiaz.\n  2 - Button state\n  3 - Press\n  0 - Output\n\n  Choose: ");
+				scanf("%d", &vib);
+				if (vib == 1)
+					b = button_init(0);
+				if (vib == 2)
+					button_vivod(b);
+				if (vib == 3)
+					b = button_press(b);
+				printf("\nSuccessfully!");
+				Sleep(1500);
+			} while (vib != 0);
+		}
+	} while (f);
+}
